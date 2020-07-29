@@ -1,0 +1,66 @@
+---
+- name: add rcm repo
+  apt-repository:
+    repo: 'ppa:martin-frost/thoughtbot-rcm'
+    update_cache: true
+  become: true
+- name: install rcm
+  apt:
+    name: rcm
+    update_cache: true
+  become: true
+- name: pull dotfiles repo
+  git:
+    repo: {{ dotfiles_repo_url }}
+    dest: '~/.dotfiles'
+- name: git dotfiles
+  command: rcup -t {{ git_dotfiles_tag }}
+
+- name: setup spacemacs
+  block:
+    - name: add emacs repo
+      apt_repository:
+        repo: 'ppa:kelleyk/emacs' 
+        update_cache: true
+      become: true
+    - name: install emacs
+      apt:
+        name: emacs26
+        update_cache: true
+      become: true
+    - name: pull spacemacs repo
+      git:
+        repo: {{ spacemacs_repo_url }}
+        dest: '~/.emacs.d'
+    - name: spacemacs dotfiles
+      command: rcup -t {{ spacemacs_dotfiles_tag }}
+  when: {{ setup_spacemacs }}
+
+# dumb?
+# - name: setup stack
+#   include_role:
+#     name: ansible-haskell-stack 
+
+
+
+# - name: check Haskell Stack installed
+#   stat: path=/usr/local/bin/stack
+#   register: bin_stack
+#   changed_when: bin_stack.stat.exists == False
+
+# - name: download Haskell Stack installer
+#   get_url:
+#     url={{ stack_url }}
+#     dest=/tmp/get-stack.sh
+#     mode=0755
+#   register: stack_installer_downloaded
+#   when: bin_stack.stat.exists == False
+
+# - name: install Haskell Stack
+#   shell: "/tmp/get-stack.sh executable=/bin/bash"
+#   register: stack_installed
+#   when: stack_installer_downloaded is succeeded
+
+# - name: Haskell Stack setup
+#   command: stack setup
+#   when: stack_installed is succeeded

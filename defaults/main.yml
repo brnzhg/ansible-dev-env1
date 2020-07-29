@@ -1,0 +1,10 @@
+---
+# defaults file for haskell-stack
+
+# stack_url: https://get.haskellstack.org/ 
+dotfiles_repo_url: https://github.com/brnzhg/rcmdotfiles
+git_dotfiles_tag: git1
+
+setup_spacemacs: yes
+spacemacs_repo_url: https://github.com/syl20bnr/spacemacs
+spacemacs_dotfiles_tag: spacemacs1
