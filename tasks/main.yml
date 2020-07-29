@@ -34,7 +34,7 @@
         dest: '~/.emacs.d'
     - name: spacemacs dotfiles
       command: rcup -t {{ spacemacs_dotfiles_tag }}
-  when: "{{ setup_spacemacs }}"
+  when: setup_spacemacs
 
 # dumb?
 # - name: setup stack
