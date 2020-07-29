@@ -11,7 +11,7 @@
   become: true
 - name: pull dotfiles repo
   git:
-    repo: {{ dotfiles_repo_url }}
+    repo: "{{ dotfiles_repo_url }}"
     dest: '~/.dotfiles'
 - name: git dotfiles
   command: rcup -t {{ git_dotfiles_tag }}
@@ -30,11 +30,11 @@
       become: true
     - name: pull spacemacs repo
       git:
-        repo: {{ spacemacs_repo_url }}
+        repo: "{{ spacemacs_repo_url }}"
         dest: '~/.emacs.d'
     - name: spacemacs dotfiles
       command: rcup -t {{ spacemacs_dotfiles_tag }}
-  when: {{ setup_spacemacs }}
+  when: "{{ setup_spacemacs }}"
 
 # dumb?
 # - name: setup stack
