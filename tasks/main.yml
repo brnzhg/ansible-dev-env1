@@ -1,6 +1,6 @@
 ---
 - name: add rcm repo
-  apt-repository:
+  apt_repository:
     repo: 'ppa:martin-frost/thoughtbot-rcm'
     update_cache: true
   become: true
